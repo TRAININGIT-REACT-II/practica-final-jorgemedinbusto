@@ -7,6 +7,7 @@ const Status = () => {
     const [formState, setFormState] = useState({username:"",password:""});
 
     const onChange = (key) => {
+        
         return (e) => {
             setFormState({
                 ...formState,
@@ -15,16 +16,38 @@ const Status = () => {
         };
     };
 
+    const newUser = (res) => {
+        console.log("Codigo de respuesta " + json.code);
+        if(res.status === 400){
+            //Modal el usuario ya existe
+        } else if (res.status === 500){
+            //Modal error al guardar la contraseña
+        } else {
+            //El usuario se ha mostrado correctamente
+            //Guardar token
+            //Redirigir a página de inicio de sesión o de notas de usuario
+        }
+    };
+
     const onClick = () => {
-        console.log(formState.user + " " + formState.pass);
-    }
+        console.log(formState.username + " " + formState.password);
+        fetch("/api/register", 
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            },
+            body: JSON.stringify({username:formState.username,password:formState.password})
+        })
+        .then((res) => console.log(res));
+    };
   
     return (
         <div>
             <label htmlFor="newUserText">Nombre de Usuario</label><br/>
-            <input type="text" id="newUserText" value={formState.user} onChange={onChange("username")}></input><br/>
+            <input type="text" id="newUserText" value={formState.username} onChange={onChange("username")}></input><br/>
             <label htmlFor="newPassword">Contraseña</label><br/>
-            <input type="password" id="newPassword" value={formState.pass} onChange={onChange("password")}></input><br/>
+            <input type="password" id="newPassword" value={formState.password} onChange={onChange("password")}></input><br/>
             <button id="newUser" onClick={onClick}>Crear usuario</button>
 
             <nav>

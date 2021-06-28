@@ -10,6 +10,9 @@ import NewUser from "./components/views/NewUser";
 import Home from "./components/views/Home";
 import NotFound from "./components/views/NotFound";
 
+//Contextos
+import Token from "./components/contextos/Token"
+
 // Componente principal de la aplicación.
 const App = () => {
   const [status, setStatus] = useState(false);
@@ -24,27 +27,31 @@ const App = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  //Usar Context para guardar Token de usuario
+
   // Mostramos la aplicación
   return (
-    <Router>
-      <main>
-        <h1>Práctica Final React Avanzado</h1>
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </main>
-    </Router>
+    <Token.Provider value={{current:token, update: setToken}}>
+      <Router>
+        <main>
+          <h1>Práctica Final React Avanzado</h1>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/newUser">
+              <NewUser />
+            </Route>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </main>
+      </Router>
+    </Token.Provider>
 
     
   );
