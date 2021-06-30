@@ -7,12 +7,7 @@ const Home = () => {
   
     return (
         <div>
-            <nav>
-                <Link to="/newUser">Registrarse</Link>
-            </nav>
-            <nav>
-                <Link to="/login">Iniciar Sesión</Link>
-            </nav>
+            Bienvenido a la aplicación!
         </div>
     );
   };
