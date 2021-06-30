@@ -20,26 +20,24 @@ const reducer = (state = estadoInicial, action) => {
         case actionTypes.EDIT_NOTE:
             return {
                 list: [
-                    ...state.list.splice(0, action.index),
+                    ...state.list.slice(0, action.index),
                     {
-                        ...state.list[action.id],
-                        title: action.title,
-                        content: action.content,
-                        author: action.author
+                        ...state.list[action.index],
+                        title: action.note.title,
+                        content: action.note.content
                     },
-                    ...state.list.splice(action.id+1)
+                    ...state.list.slice(action.index+1)
                 ]
             }
         case actionTypes.DELETE_NOTE:
             return {
                 list: [
-                    ...state.list.splice(0, action.id),
-                    ...state.list.splice(action.id+1)
+                    ...state.list.slice(0, action.index),
+                    ...state.list.slice(action.index + 1)
                 ]
             }
         case actionTypes.GET_NOTES:
             return{ list: action.list };
-                action.list
         default:
             return state;
     }

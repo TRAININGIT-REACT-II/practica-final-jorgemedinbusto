@@ -5,14 +5,15 @@ export const addNote = (note) => ({
     note
 });
 
-export const editNote = (note) => ({
+export const editNote = (note,index) => ({
     type: actionTypes.EDIT_NOTE,
-    note
+    note,
+    index
 });
 
-export const deleteNote = (id) => ({
+export const deleteNote = (index) => ({
     type: actionTypes.DELETE_NOTE,
-    id
+    index
 });
 
 export const getNotes = (list) => ({

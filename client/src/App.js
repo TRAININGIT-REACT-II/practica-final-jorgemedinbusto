@@ -14,6 +14,8 @@ import NewUser from "./components/views/NewUser";
 import Home from "./components/views/Home";
 import NotFound from "./components/views/NotFound";
 import Notas from "./components/views/Notas";
+import ShowNote from "./components/views/showNote";
+import EditNote from "./components/views/editNote";
 
 //Contextos
 import Token from "./components/contextos/token"
@@ -65,6 +67,12 @@ const App = () => {
               </PrivateRoute>
               <PrivateRoute path="/newNote">
                 <NewNote/>
+              </PrivateRoute>
+              <PrivateRoute path="/showNote">
+                <ShowNote/>
+              </PrivateRoute>
+              <PrivateRoute path="/editNote">
+                <EditNote/>
               </PrivateRoute>
               <Route path="*">
                 <NotFound />
