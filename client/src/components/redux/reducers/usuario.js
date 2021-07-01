@@ -11,6 +11,10 @@ const reducer = (state = estadoInicial, action) => {
             return {
                 username: action.username
             };
+        case actionTypes.LOGOUT:
+            return {
+                username:""
+            };
         default:
             return state;
     }

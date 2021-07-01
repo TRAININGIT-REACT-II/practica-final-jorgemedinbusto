@@ -1,41 +1,70 @@
 // Pantalla de notas del usuario
 
-//Libreria router
+//Librerias
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useContext, useState, useRef } from "react";
+import { useHistory } from "react-router";
+
 //Store
 import store from "../redux/store"
 
-import { useContext } from "react";
+//Selectores
 import { getNotes } from "../selectors/notes";
 import { getUser } from "../selectors/user";
-import { useSelector, useDispatch } from "react-redux";
+
+//Acciones
 import { deleteNote } from "../redux/actions/notas";
 
+//Contexto
 import Token from "../contextos/token";
 
-//
-import { useHistory } from "react-router";
+//Modal
+import Modal from "../Modal"
+
 
 
 
 const Notas = () => {
 
+    // Estado de Redux
     const notes = useSelector((state) => getNotes(state));
     const usuario = useSelector((state) => getUser(state));
 
+    //Dispatch para lanzar acciones
     const dispatch = useDispatch();
 
+    //Contexto de token
     const {current} = useContext(Token);
 
+    //Hook para manejar la ruta actual de la aplicación
     const history = useHistory();
 
+    //Estado del modal
+    const [showModal, setShowModal] = useState(false);
+    const openModal = () => setShowModal(true);
+    const closeModal = () => setShowModal(false);
+
+    //Estado del modal confirm
+    const [showModalConfirm, setShowModalConfirm] = useState(false);
+    const openModalConfirm = (id, index) => {
+        setIndex(index);
+        setId(id);
+        setShowModalConfirm(true);
+    };
+    const closeModalConfirm = () => setShowModalConfirm(false);
+    const modalText = useRef(null);
+
+    //Método que redirige a la pantalla de edición de una nota
     const editNote = (note, index) => {
         console.log("Metodo editNote");
         history.push("/editNote", {note:note, index: index });
     };
 
+    //Método para eliminar una nota
     const removeNote = (id, index) => {
         console.log("Metodo delete");
+        closeModalConfirm();
         fetch("/api/notes/"+id, 
         {
             method: "DELETE",
@@ -48,39 +77,52 @@ const Notas = () => {
         })
         .then((json) => {
             if(json.error != null){
-                console.log("Error al eliminar la nota");
+                modalText.current=json.error;
+                openModal();
             }else{
-                console.log("Se ha eliminado la nota correctamente");
                 dispatch(deleteNote(index));
+                modalText.current="Nota eliminada";
+                openModal();
             }
          } );
+         
     };
 
+    //Método para mostrar el contenido de una nota
     const showNote = (index) => {
         console.log("Metodo showNote");
         history.push("/showNote", {id:index});
     };
+
+    const [id, setId] = useState(null);
+    const [index, setIndex] = useState(null);
   
     return (
-        <div>
+        <div className="text-center">
             <h1>Listado de notas del usuario {usuario}</h1>
             <nav>
                 <Link to="/newNote">Crear una nueva nota</Link>
             </nav>
-            <ul className="noteslist_list">
+            <div className="col-md-2"></div>
+            <ul className="col-md-8 text-center">
                 {notes.map((note, i) => (
-                <li
-                    key={i}
-                >
-                    <a id={`note-${i}`}>
-                        {note.title}
-                        <button id={`edit-${i}`} onClick={() => editNote(note, i)}>Editar</button>
-                        <button id={`delete-${i}`} onClick={() => removeNote(note.id,i)}>Eliminar</button>
-                        <button id={`show-${i}`}  onClick={() => showNote(i)}>Mostrar</button>
-                    </a>
-                </li>
-                ))}
+                <li key={i} style={{listStyle:"none"}}>
+                    <b className="col-md-3">{note.title}</b>
+                    <button id={`edit-${i}`} className="col-md-3" onClick={() => editNote(note, i)}>Editar</button>
+                    <button id={`delete-${i}`} className="col-md-3" onClick={() => openModalConfirm(note.id, i)}>Eliminar</button>
+                    <button id={`show-${i}`}  className="col-md-3" onClick={() => showNote(i)}>Mostrar</button>
+                </li>))}
             </ul>
+            <div className="col-md-2"></div>
+            <Modal show={showModalConfirm} onClose={closeModalConfirm}>
+                <p>¿Desea eliminar la nota?</p>
+                <button id={`confirm`} onClick={() => removeNote(id,index)}>Confirmar</button>
+                <button id={`cancel`}  onClick={() => closeModalConfirm()}>Cancelar</button>
+            </Modal>
+            <Modal show={showModal} onClose={closeModal}>
+                <p>{modalText.current}</p>
+                <button onClick={() => closeModal()}>Aceptar</button>
+            </Modal>
         </div>
     );
   };

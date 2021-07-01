@@ -1,5 +1,6 @@
 const actions = [
     "LOGIN",
+    "LOGOUT",
     "EDIT_NOTE",
     "ADD_NOTE",
     "DELETE_NOTE",

@@ -1,0 +1,15 @@
+.tituloApp{
+    background-color: brown;
+    color: cornsilk;
+}
+
+html,body{
+    background-color: brown;
+    color: black;
+}
+
+.cabeceraEnlaces{
+    background-color: brown;
+    color: cornsilk;
+    margin-bottom: 10%;
+}

@@ -16,7 +16,7 @@ const ShowNote = () => {
     const location = useLocation();
   
     return (
-        <div>
+        <div className="text-center">
             <h2>{notes[location.state.id].title}</h2>
             <h3>{notes[location.state.id].content}</h3>
         </div>
