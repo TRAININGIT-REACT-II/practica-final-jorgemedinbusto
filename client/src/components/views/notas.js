@@ -14,7 +14,7 @@ import { getNotes } from "../selectors/notes";
 import { getUser } from "../selectors/user";
 
 //Acciones
-import { deleteNote } from "../redux/actions/notas";
+import { deleteNote, sortNotes } from "../redux/actions/notas";
 
 //Contexto
 import Token from "../contextos/token";
@@ -96,6 +96,10 @@ const Notas = () => {
 
     const [id, setId] = useState(null);
     const [index, setIndex] = useState(null);
+
+    const ordenar = () => {
+        dispatch(sortNotes());
+    };
   
     return (
         <div className="text-center">
@@ -103,6 +107,7 @@ const Notas = () => {
             <nav>
                 <Link to="/newNote">Crear una nueva nota</Link>
             </nav>
+            <button onClick={() => ordenar()}>Ordenar</button>
             <div className="col-md-2"></div>
             <ul className="col-md-8 text-center">
                 {notes.map((note, i) => (

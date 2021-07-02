@@ -4,7 +4,8 @@ const actions = [
     "EDIT_NOTE",
     "ADD_NOTE",
     "DELETE_NOTE",
-    "GET_NOTES"
+    "GET_NOTES",
+    "SORT_NOTES"
 ];
 
 const actionTypes = {};

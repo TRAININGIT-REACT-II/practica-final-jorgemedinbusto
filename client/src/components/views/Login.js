@@ -29,7 +29,11 @@ const Login = () => {
     //Modal
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
+    const closeModal = () => {
+        setShowModal(false);
+        history.push("/notes");
+    }
+    
 
     //Error
     const [errorLogin, setErrorLogin] = useState({sendError: false, msg: ""});

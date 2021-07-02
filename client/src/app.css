@@ -1,15 +1,54 @@
-.tituloApp{
-    background-color: brown;
-    color: cornsilk;
-}
+/*.tituloApp{
+    background-color: white;
+    color: black;
+}*/
 
 html,body{
-    background-color: brown;
-    color: black;
+    height:100%;
+    margin: 0;
 }
 
 .cabeceraEnlaces{
-    background-color: brown;
-    color: cornsilk;
     margin-bottom: 10%;
+}
+
+body.light{
+    background-color: white;
+    color: black;
+}
+
+body.dark{
+    background-color: black;
+    color: white;
+}
+
+body.light > * button{
+    color: black;
+}
+
+body.dark > * button{
+    color: black;
+}
+
+body.dark > * input{
+    color: black;
+}
+
+body.dark > * textarea{
+    color: black;
+}
+
+body.dark{
+    background-color: black;
+    color: white;
+}
+
+html.light{
+    background-color: white;
+    color: black;
+}
+
+html.dark{
+    background-color: black;
+    color: white;
 }

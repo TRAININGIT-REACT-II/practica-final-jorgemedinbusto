@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { resolve } = require("path");
+const { DefinePlugin } = require("webpack");
 
 /**
  * Configuración para compilar el cliente de la práctica final
@@ -44,6 +45,9 @@ module.exports = {
       favicon: "./static/favicon.ico",
       filename: "index.html",
     }),
+
+    new DefinePlugin({
+    })
   ],
   // Por ahora, incluimos siempre los source maps para que las herramientas
   // de desarrollo del navegador muestren el codigo fuente
@@ -61,7 +65,7 @@ module.exports = {
     open: true,
     // Añadimos el proxy para los ejemplos 6.2
     proxy: {
-      "/api": "http://localhost:3000",
+      "/api": "http://localhost:3000"
     },
   },
 };

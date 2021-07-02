@@ -72,7 +72,7 @@ const NewUser = () => {
   
     return (
         <div className="text-center">
-            <label htmlFor="newUserText">Nombre de Usuario</label><br/>
+            <label htmlFor="newUserText">Nombre del nuevo usuario</label><br/>
             <input type="text" id="newUserText" value={formState.username} onChange={onChange("username")}></input><br/>
             <label htmlFor="newPassword">Contraseña</label><br/>
             <input type="password" id="newPassword" value={formState.password} onChange={onChange("password")}></input><br/>
@@ -82,9 +82,6 @@ const NewUser = () => {
                 <Error {...errorNewUser}></Error>
             </ErrorBoundary>
 
-            <nav>
-                <Link to="/">Volver al inicio</Link>
-            </nav>
             <Modal show={showModal} onClose={closeModal}>
                 <p>{modalText.current}</p>
                 <button id={`cancel`}  onClick={() => closeModal()}>Aceptar</button>
