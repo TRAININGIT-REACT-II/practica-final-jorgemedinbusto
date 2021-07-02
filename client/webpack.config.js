@@ -5,7 +5,7 @@ const { DefinePlugin } = require("webpack");
 /**
  * Configuración para compilar el cliente de la práctica final
  */
-module.exports = {
+const config = {
   // Para simplificar, asignamos el contexto a la carpeta actual
   context: resolve(__dirname),
   // Punto de entrada de la aplicación
@@ -68,4 +68,20 @@ module.exports = {
       "/api": "http://localhost:3000"
     },
   },
+};
+
+module.exports = (_env, argv) => {
+  if (argv.mode === "production") {
+    config.devtool = "source-map";
+    config.devServer = {
+      historyApiFallback: true,
+      hot: false,
+      open: false,
+      proxy: {
+        "/api": "http://localhost:3000"
+      },
+    }
+  }
+
+  return config;
 };
