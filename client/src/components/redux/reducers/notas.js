@@ -39,19 +39,36 @@ const reducer = (state = estadoInicial, action) => {
         case actionTypes.GET_NOTES:
             return{ list: action.list };
         case actionTypes.SORT_NOTES:
-            return {
-                list:[
-                    ...state.list.slice().sort(function(a, b) {
-                        var nameA = a.title.toLowerCase(),
-                        nameB = b.title.toLowerCase()
-                        if (nameA < nameB)
-                            return -1
-                        if (nameA > nameB)
-                            return 1
-                        return 0
-                    })
-                ]
-            }        
+            if(action.asc){
+                return {
+                    list:[
+                        ...state.list.slice().sort(function(a, b) {
+                            var nameA = a.title.toLowerCase(),
+                            nameB = b.title.toLowerCase()
+                            if (nameA < nameB)
+                                return -1
+                            if (nameA > nameB)
+                                return 1
+                            return 0
+                        })
+                    ]
+                }
+            } else {
+                return {
+                    list:[
+                        ...state.list.slice().sort(function(a, b) {
+                            var nameA = a.title.toLowerCase(),
+                            nameB = b.title.toLowerCase()
+                            if (nameA > nameB)
+                                return -1
+                            if (nameA < nameB)
+                                return 1
+                            return 0
+                        })
+                    ]
+                }
+            }
+                    
         default:
             return state;
     }

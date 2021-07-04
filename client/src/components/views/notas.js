@@ -97,8 +97,12 @@ const Notas = () => {
     const [id, setId] = useState(null);
     const [index, setIndex] = useState(null);
 
-    const ordenar = () => {
-        dispatch(sortNotes());
+    const ordenarAsc = () => {
+        dispatch(sortNotes(true));
+    };
+
+    const ordenarDesc = () => {
+        dispatch(sortNotes(false));
     };
   
     return (
@@ -107,7 +111,8 @@ const Notas = () => {
             <nav>
                 <Link to="/newNote">Crear una nueva nota</Link>
             </nav>
-            <button onClick={() => ordenar()}>Ordenar</button>
+            <button onClick={() => ordenarAsc()}>Ordenar ASC</button>
+            <button onClick={() => ordenarDesc()}>Ordenar DESC</button>
             <div className="col-md-2"></div>
             <ul className="col-md-8 text-center">
                 {notes.map((note, i) => (

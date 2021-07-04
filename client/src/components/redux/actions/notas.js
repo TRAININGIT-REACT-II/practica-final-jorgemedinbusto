@@ -21,8 +21,9 @@ export const getNotes = (list) => ({
     list
 });
 
-export const sortNotes = () => ({
-    type: actionTypes.SORT_NOTES
+export const sortNotes = (asc) => ({
+    type: actionTypes.SORT_NOTES,
+    asc
 });
 
 
